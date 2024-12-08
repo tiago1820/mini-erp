@@ -1,0 +1,17 @@
+npm init -y
+npm i typescript -D
+tsc --init
+npm i ts-node-dev -D
+npm i express
+npm i cors
+npm i morgan
+npm i @types/express -D
+npm i @types/cors -D
+npm i @types/morgan -D
+
+npm i typeorm --save
+npm i reflect-metadata --save
+npm i @types/node --save-dev
+npm i mysql2 --save
+
+
