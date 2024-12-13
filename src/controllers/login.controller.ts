@@ -3,14 +3,16 @@ import LoginService from "../services/login.service";
 
 class LoginController {
 
-    async index(req: Request, res: Response) {
+    async index(req: Request, res: Response): Promise<void> {
         const { email, password } = req.body;
         if (!email) {
-            return res.status(400).json({ message: "El campo 'email' es obligatorio." });
+            res.status(400).json({ message: "El campo 'email' es obligatorio." });
+            return;
         }
 
         if (!password) {
-            return res.status(400).json({ message: "El campo 'password' es obligatorio." });
+            res.status(400).json({ message: "El campo 'password' es obligatorio." });
+            return;
         }
 
         const user = await LoginService.index(email, password);
@@ -18,11 +20,13 @@ class LoginController {
         
 
         if (!user) {
-            return res.status(401).json({ message: "Credenciales inválidas." });
+            res.status(401).json({ message: "Credenciales inválidas." });
+            return;
         }
 
         const data = { message: "Login exitoso.", user };
         res.status(200).json(data);
+        return;
 
     }
 
