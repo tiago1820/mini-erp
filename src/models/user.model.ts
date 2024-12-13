@@ -21,10 +21,13 @@ export class User extends BaseEntity {
     id: number;
 
     @Column()
-    email: String;
+    name: string;
 
     @Column()
-    password: String;
+    email: string;
+
+    @Column()
+    password: string;
 
     @ManyToOne(() => Company, (company) => company.users)
     company: Company;

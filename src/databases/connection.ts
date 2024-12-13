@@ -32,5 +32,5 @@ export const AppDataSource = new DataSource({
         Purchase,
         PurchaseProduct
     ],
-    synchronize: true
+    synchronize: false
 });
