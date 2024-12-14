@@ -1,4 +1,6 @@
+import jwt from "jsonwebtoken";
 import { User } from "../models/user.model";
+import { JWT_SECRET, JWT_EXPIRATION } from "../config/configjwt";
 
 class LoginService {
 
@@ -14,7 +16,13 @@ class LoginService {
                 return false;
             }
 
-            return user;
+            const token = jwt.sign(
+                { id: user.id, email: user.email },
+                JWT_SECRET,
+                { expiresIn: JWT_EXPIRATION }
+            );
+
+            return { user, token };
         } catch (error) {
             throw new Error("Error interno del servidor.");
         }

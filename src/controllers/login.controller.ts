@@ -15,16 +15,26 @@ class LoginController {
             return;
         }
 
-        const user = await LoginService.index(email, password);
-        console.log("AQUI: ", user);
-        
+        const result = await LoginService.index(email, password);
+        console.log("AQUI: ", result);
 
-        if (!user) {
+
+        if (!result) {
             res.status(401).json({ message: "Credenciales inválidas." });
             return;
         }
 
-        const data = { message: "Login exitoso.", user };
+        const { user, token } = result;
+
+        const data = {
+            user: {
+                id:user.id,
+                name: user.name,
+                email: user.email
+            },
+            token
+        };
+
         res.status(200).json(data);
         return;
 

@@ -1,11 +1,11 @@
 import express from "express";
-import HomeController from "../controllers/home.controller";
 import AuthMiddleware from "../middlewares/auth.middleware";
+import HomeController from "../controllers/home.controller";
 const router = express.Router();
 
-router.get("/", AuthMiddleware.isAuthenticated, HomeController.index);
+router.get("/", AuthMiddleware.verifyToken, HomeController.index);
 
-router.route("/:id")
-    .get(AuthMiddleware.isAuthenticated, HomeController.index)
+// router.route("/:id")
+//     .get(AuthMiddleware.verifyToken, HomeController.index)
 
 export default router;

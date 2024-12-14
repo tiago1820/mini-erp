@@ -4,15 +4,21 @@ import userService from "../services/user.service";
 class HomeController {
 
     async index(req: Request, res: Response): Promise<void> {
-        const { id } = req.params;
+        const user = req.user;
 
-        if (!id || isNaN(Number(id))) {
-            res.status(400).json({ message: "El ID proporcionado no es válido." })
+        if (!user) {
+            res.status(401).json({ message: "Usuario no autenticado." });
             return;
         }
 
         try {
-            const data = await userService.show(Number(id));
+            const data = await userService.show(Number(user.id));
+
+            if (!data) {
+                res.status(404).json({ message: "Usuario no encontrado." });
+                return;
+            }
+            
             res.status(200).json(data);
             return;
 
