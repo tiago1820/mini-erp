@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import LoginService from "../services/login.service";
-
+import { revokeToken } from "../config/tokenBlacklist";
 class LoginController {
 
     async index(req: Request, res: Response): Promise<void> {
@@ -28,7 +28,7 @@ class LoginController {
 
         const data = {
             user: {
-                id:user.id,
+                id: user.id,
                 name: user.name,
                 email: user.email
             },
@@ -37,6 +37,20 @@ class LoginController {
 
         res.status(200).json(data);
         return;
+
+    }
+
+    async logout(req: Request, res: Response): Promise<void> {
+        const token = req.headers.authorization?.split(" ")[1];
+
+        if (!token) {
+            res.status(400).json({ message: "Token requerido para cerrar sesión." });
+            return;
+        }
+
+        revokeToken(token);
+
+        res.status(200).json({ message: "Sesión cerrada correctamente." });
 
     }
 

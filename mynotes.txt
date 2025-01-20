@@ -15,3 +15,7 @@ npm i @types/node --save-dev
 npm i mysql2 --save
 
 
+Recriando o ContaAzul 10
+
+
+
