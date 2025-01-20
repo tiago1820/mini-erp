@@ -16,7 +16,6 @@ class LoginController {
         }
 
         const result = await LoginService.index(email, password);
-        console.log("AQUI: ", result);
 
 
         if (!result) {
@@ -26,14 +25,20 @@ class LoginController {
 
         const { user, token } = result;
 
+        const permissions = user.group?.params.map((perm) => perm.name) || [];
+
         const data = {
             user: {
                 id: user.id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                permissions,
+                token
             },
-            token
         };
+
+        console.log("AQUI: ", data);
+
 
         res.status(200).json(data);
         return;

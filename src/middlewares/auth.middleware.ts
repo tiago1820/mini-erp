@@ -34,6 +34,8 @@ class AuthMiddleware {
         try {
             const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload & { id: number; email: string };
             req.user = { id: decoded.id, email: decoded.email };
+            console.log("AQUILOCO:", req.user);
+            
             next();
         } catch (error) {
             if (error instanceof jwt.TokenExpiredError) {
